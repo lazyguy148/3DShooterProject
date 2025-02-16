@@ -14638,9 +14638,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitVFXPrefab: {fileID: 2886150675452669170, guid: a818e6a82ebd9ac4bb2d0f53a426d063, type: 3}
+  bulletHolePrefab: {fileID: 6132516112542589259, guid: e0e3a92f1b9ca764e970efc955e77173, type: 3}
   animator: {fileID: 577800746}
   muzzleFlash: {fileID: 5003748253722752315}
   damageAmount: 1
+  bulletHoleLifetime: 5
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!43 &1598518996
 Mesh:
   m_ObjectHideFlags: 0

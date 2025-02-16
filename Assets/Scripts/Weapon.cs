@@ -1,12 +1,15 @@
-using StarterAssets;
+﻿using StarterAssets;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
     [SerializeField] GameObject hitVFXPrefab;
+    [SerializeField] GameObject bulletHolePrefab;
     [SerializeField] Animator animator;
     [SerializeField] ParticleSystem muzzleFlash;
     [SerializeField] int damageAmount = 1;
+    [SerializeField] float bulletHoleLifetime = 100f; 
+    [SerializeField] LayerMask hitLayers;
 
     StarterAssetsInputs starterAssetsInputs;
 
@@ -38,7 +41,26 @@ public class Weapon : MonoBehaviour
             Instantiate(hitVFXPrefab, hit.point, Quaternion.identity);
 
             EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
-            enemyHealth?.TakeDamage(damageAmount);
+            if (enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(damageAmount);
+            }
+            else
+            {
+                CreateBulletHole(hit);
+            }
+
         }
+    }
+
+    void CreateBulletHole(RaycastHit hit)
+    {
+        if (bulletHolePrefab == null) return;
+
+        // Đẩy lỗ đạn ra khỏi bề mặt một chút để tránh clipping
+        GameObject bulletHole = Instantiate(bulletHolePrefab, hit.point + hit.normal * 0.01f, Quaternion.LookRotation(-hit.normal));
+
+        // Xóa lỗ đạn sau một khoảng thời gian mà không làm mờ
+        Destroy(bulletHole, bulletHoleLifetime);
     }
 }
