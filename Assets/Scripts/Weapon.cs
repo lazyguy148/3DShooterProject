@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    [SerializeField] WeaponSO weaponSO;
     [SerializeField] GameObject hitVFXPrefab;
     [SerializeField] GameObject bulletHolePrefab;
     [SerializeField] Animator animator;
     [SerializeField] ParticleSystem muzzleFlash;
-    [SerializeField] int damageAmount = 1;
     [SerializeField] float bulletHoleLifetime = 100f; 
     [SerializeField] LayerMask hitLayers;
 
@@ -43,7 +43,7 @@ public class Weapon : MonoBehaviour
             EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
             {
-                enemyHealth.TakeDamage(damageAmount);
+                enemyHealth.TakeDamage(weaponSO.Damage);
             }
             else
             {
