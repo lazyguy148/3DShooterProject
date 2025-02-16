@@ -33,14 +33,15 @@ public class ActiveWeapon : MonoBehaviour
     void HandleShoot()
     {
         if (!starterAssetsInputs.shoot) return;
-        if(TimeSinceLastShot >= weaponSO.FireRate)
+        if (TimeSinceLastShot >= weaponSO.FireRate)
         {
             currentWeapon.Shoot(weaponSO);
             animator.Play(SHOOT_STRING, 0, 0f);
             TimeSinceLastShot = 0f;
         }
-        starterAssetsInputs.ShootInput(false);
-
-        
+        if (!weaponSO.isAutomatic)
+        {
+            starterAssetsInputs.ShootInput(false);
+        }
     }
 }

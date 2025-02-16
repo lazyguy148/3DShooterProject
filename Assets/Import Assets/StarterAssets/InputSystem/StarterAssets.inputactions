@@ -47,7 +47,7 @@
                     "id": "178efdec-9f9c-446e-95d1-67d245714ee7",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press(behavior=2)",
                     "initialStateCheck": false
                 }
             ],
