@@ -9,25 +9,24 @@ public class Weapon : MonoBehaviour
     [SerializeField] LayerMask hitLayers;
     public void Shoot(WeaponSO weaponSO)
     {
-
+        muzzleFlash.Play();
         RaycastHit hit;
 
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, Mathf.Infinity))
         {
-            muzzleFlash.Play();
             Instantiate(weaponSO.HitVFXPrefab, hit.point, Quaternion.identity);
             EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
             {
                 enemyHealth.TakeDamage(weaponSO.Damage);
             }
-            else
+            else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Default"))
             {
                 CreateBulletHole(hit);
             }
-
         }
     }
+
 
     void CreateBulletHole(RaycastHit hit)
     {
