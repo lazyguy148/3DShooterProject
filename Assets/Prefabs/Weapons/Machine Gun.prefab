@@ -80,7 +80,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   muzzleFlash: {fileID: 7464403924719339367}
   bulletHolePrefab: {fileID: 6132516112542589259, guid: e0e3a92f1b9ca764e970efc955e77173, type: 3}
-  bulletHoleLifetime: 5
+  bulletHoleLifetime: 3
   hitLayers:
     serializedVersion: 2
     m_Bits: 4294967295
