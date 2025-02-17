@@ -11,7 +11,7 @@ public class ActiveWeapon : MonoBehaviour
 
     const string SHOOT_STRING = "Shoot";
 
-    float TimeSinceLastShot = 0f;
+    float timeSinceLastShot = 0f;
 
     void Awake()
     {
@@ -26,8 +26,8 @@ public class ActiveWeapon : MonoBehaviour
 
     void Update()
     {
-        TimeSinceLastShot += Time.deltaTime;
         HandleShoot();
+        HandleZoom();
     }
 
     public void SwitchWeapon(WeaponSO weaponSO)
@@ -44,16 +44,30 @@ public class ActiveWeapon : MonoBehaviour
 
     void HandleShoot()
     {
+        timeSinceLastShot += Time.deltaTime;
         if (!starterAssetsInputs.shoot) return;
-        if (TimeSinceLastShot >= weaponSO.FireRate)
+        if (timeSinceLastShot >= weaponSO.FireRate)
         {
             currentWeapon.Shoot(weaponSO);
             animator.Play(SHOOT_STRING, 0, 0f);
-            TimeSinceLastShot = 0f;
+            timeSinceLastShot = 0f;
         }
         if (!weaponSO.isAutomatic)
         {
             starterAssetsInputs.ShootInput(false);
+        }
+    }
+
+    void HandleZoom()
+    {
+        if(!weaponSO.CanZoom) return;
+        if (starterAssetsInputs.zoom)
+        {
+            Debug.Log("Zooming in");
+        }
+        else
+        {
+            Debug.Log("Not zooming in");
         }
     }
 }
