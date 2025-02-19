@@ -84,6 +84,9 @@ MonoBehaviour:
   hitLayers:
     serializedVersion: 2
     m_Bits: 4294967295
+  interactionLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1001 &3777719767558349622
 PrefabInstance:
   m_ObjectHideFlags: 0

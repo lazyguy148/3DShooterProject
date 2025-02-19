@@ -52,6 +52,9 @@ MonoBehaviour:
   hitLayers:
     serializedVersion: 2
     m_Bits: 4294967295
+  interactionLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &4859758644575225446
 GameObject:
   m_ObjectHideFlags: 0
