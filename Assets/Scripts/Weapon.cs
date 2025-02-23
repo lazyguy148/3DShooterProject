@@ -1,4 +1,5 @@
 ﻿
+using Cinemachine;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -8,9 +9,17 @@ public class Weapon : MonoBehaviour
     [SerializeField] float bulletHoleLifetime = 5f;
     [SerializeField] LayerMask hitLayers;
     [SerializeField] LayerMask interactionLayers;
+
+    CinemachineImpulseSource impulseSource;
+
+    private void Awake()
+    {
+        impulseSource = GetComponent<CinemachineImpulseSource>();
+    }
     public void Shoot(WeaponSO weaponSO)
     {
         muzzleFlash.Play();
+        impulseSource.GenerateImpulse();
         RaycastHit hit;
 
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, Mathf.Infinity, interactionLayers, QueryTriggerInteraction.Ignore))
