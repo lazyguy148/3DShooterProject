@@ -106,6 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4171a6689b68e3540b4aa967ca209b89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  robotVFX: {fileID: 626390607778702597, guid: 0addf656edb142845afe0f188dd91093, type: 3}
   startingHealth: 3
 --- !u!95 &6850353880297834011
 Animator:
