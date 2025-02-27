@@ -4,6 +4,7 @@ public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] GameObject robotVFX;
     [SerializeField] int startingHealth = 3;
+    [SerializeField] AudioSource sound;
 
     int currentHealth;
 
@@ -26,15 +27,27 @@ public class EnemyHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            gameManager.AdjustEnemiesLeft(-1);
+            PlaySoundDetached();
             SelfDestruct();
         }
     }
 
+    private void PlaySoundDetached()
+    {
+        GameObject soundObject = new GameObject("EnemyDeathSound");
+        AudioSource audioSource = soundObject.AddComponent<AudioSource>();
+        audioSource.clip = sound.clip;
+        audioSource.volume = sound.volume;
+        audioSource.pitch = sound.pitch;
+        audioSource.Play();
+        Destroy(soundObject, audioSource.clip.length); 
+    }
+
     public void SelfDestruct()
     {
+        PlaySoundDetached();
+        gameManager.AdjustEnemiesLeft(-1);
         Instantiate(robotVFX, transform.position, Quaternion.identity);
         Destroy(this.gameObject);
     }
-
 }

@@ -9,6 +9,7 @@ public class Turret : MonoBehaviour
     [SerializeField] Transform projectileSpawnPoint;
     [SerializeField] float fireRate = 3f;
     [SerializeField] int damage = 2;
+    [SerializeField] AudioSource fire;
 
     PlayerHealth player;
     private void Start()
@@ -27,6 +28,7 @@ public class Turret : MonoBehaviour
         while (player)
         {
             yield return new WaitForSeconds(fireRate);
+            fire.Play();
             Projectile newprojectTile = Instantiate(projectilePrefab, projectileSpawnPoint.position, turretHead.rotation).GetComponent<Projectile>();
             newprojectTile.transform.LookAt(targetPoint);
             newprojectTile.Init(damage);

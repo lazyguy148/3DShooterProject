@@ -9,15 +9,32 @@ public class Weapon : MonoBehaviour
     [SerializeField] float bulletHoleLifetime = 5f;
     [SerializeField] LayerMask hitLayers;
     [SerializeField] LayerMask interactionLayers;
-
+    [SerializeField] AudioSource sound;
     CinemachineImpulseSource impulseSource;
+    string currentWeaponName;
+    
+
+    private void Update()
+    {
+        if (currentWeaponName == "Machine Gun(Clone)")
+        {
+            if (Input.GetMouseButtonUp(0) && sound.isPlaying)
+            {
+                sound.Stop();
+            }
+        }
+        
+    }
 
     private void Awake()
     {
         impulseSource = GetComponent<CinemachineImpulseSource>();
+        currentWeaponName = this.name.ToString();
+        
     }
     public void Shoot(WeaponSO weaponSO)
     {
+        sound.Play();
         muzzleFlash.Play();
         impulseSource.GenerateImpulse();
         RaycastHit hit;

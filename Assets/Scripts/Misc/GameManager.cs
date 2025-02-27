@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] TMP_Text enemiesLeftText;
     [SerializeField] GameObject youWinText;
+    [SerializeField] AudioSource win;
 
     int enemiesLeft = 0;
 
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
 
         if(enemiesLeft <= 0)
         {
+            win.Play();
             youWinText.SetActive(true);
         }
     }

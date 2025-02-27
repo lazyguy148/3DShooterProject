@@ -10,6 +10,7 @@ public class ActiveWeapon : MonoBehaviour
     [SerializeField] Camera weaponCamera;
     [SerializeField] GameObject zoomVignette;
     [SerializeField] TMP_Text ammoText;
+    [SerializeField] AudioSource zoom;
 
     WeaponSO currentWeaponSO;
     Animator animator;
@@ -86,11 +87,17 @@ public class ActiveWeapon : MonoBehaviour
         }
     }
 
+    public WeaponSO GetCurrentWeaponSO()
+    {
+        return currentWeaponSO;
+    }
+
     void HandleZoom()
     {
         if(!currentWeaponSO.CanZoom) return;
         if (starterAssetsInputs.zoom)
         {
+            zoom.Play();
             playerFollowCamera.m_Lens.FieldOfView = currentWeaponSO.ZoomAmount;
             weaponCamera.fieldOfView = currentWeaponSO.ZoomAmount;
             zoomVignette.SetActive(true);

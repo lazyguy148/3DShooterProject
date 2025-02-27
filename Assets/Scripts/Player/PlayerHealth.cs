@@ -11,6 +11,8 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] Transform weaponCamera;
     [SerializeField] Image[] shieldBars;
     [SerializeField] GameObject gameOverContainer;
+    [SerializeField] AudioSource lose;
+    [SerializeField] AudioSource hit;
 
     int currentHealth;
     int gameOverVirtualCameraPriority = 20;
@@ -23,11 +25,13 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        hit.Play();
         currentHealth -= amount;
         AdjustShieldUI();
 
         if (currentHealth <= 0)
         {
+            PlayLoseSoundDetached();
             PlayerGameOver();
         }
     }
@@ -40,6 +44,17 @@ public class PlayerHealth : MonoBehaviour
         StarterAssetsInputs starterAssetsInputs = FindFirstObjectByType<StarterAssetsInputs>();
         starterAssetsInputs.SetCursorState(false);
         Destroy(this.gameObject);
+    }
+
+    private void PlayLoseSoundDetached()
+    {
+        GameObject soundObject = new GameObject("PlayerDeathSound");
+        AudioSource audioSource = soundObject.AddComponent<AudioSource>();
+        audioSource.clip = lose.clip;
+        audioSource.volume = lose.volume;
+        audioSource.pitch = lose.pitch;
+        audioSource.Play();
+        Destroy(soundObject, audioSource.clip.length); 
     }
 
     void AdjustShieldUI()
